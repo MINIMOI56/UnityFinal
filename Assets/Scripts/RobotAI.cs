@@ -6,12 +6,17 @@ using UnityEngine.AI;
 
 public class RobotAI : MonoBehaviour
 {
+    [Header("Statistique du robot")]
     private float maxHealth;
     public RobotScriptableObject config;
     private NavMeshAgent agent = null;
     Vector3 moveDirection;
     Rigidbody rb;
+
+    [Header("Cible du robot")]
     public Transform target;
+
+    [Header("Animation du robot")]
     public Animator animator;
 
     void Start()
@@ -20,7 +25,6 @@ public class RobotAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
     }
-
 
     void Update()
     {
@@ -33,6 +37,9 @@ public class RobotAI : MonoBehaviour
         AnimationControler();
     }
 
+    /// <summary>
+    /// Contrôle les animations du robot pour si il bouge ou non
+    /// </summary>
     void AnimationControler()
     {
         moveDirection = agent.velocity;
@@ -46,10 +53,11 @@ public class RobotAI : MonoBehaviour
         {
             animator.SetBool("Moving", false);
         }
-
-        // Animation de frappe
     }
 
+    /// <summary>
+    /// Contrôle l'animation du robot lorsqu'il est en contact avec le joueur
+    /// </summary>
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -58,12 +66,18 @@ public class RobotAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Contrôle la vitesse et la direction du robot
+    /// </summary>
     void MoveToTarget()
     {
         agent.speed = config.speed;
         agent.SetDestination(target.transform.position);
     }
 
+    /// <summary>
+    /// Contrôle la vie du robot
+    /// </summary>
     internal void TakeDamage(float damage)
     {
         if(maxHealth > 0){
@@ -71,6 +85,9 @@ public class RobotAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Vérifie si le robot est mort
+    /// </summary>
     void HealthCheck()
     {
         if (maxHealth == 0)

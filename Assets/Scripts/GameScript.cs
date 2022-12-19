@@ -8,9 +8,17 @@ public class GameScript : MonoBehaviour
     private int round;
     private int nbMaxEnemies;
     private int nbEnemiesKilled;
+
+    [Header("Enemies")]
     public GameObject[] enemies;
+
+    [Header("Spawn Points")]
     public GameObject[] spawnPoints;
+
+    [Header("Player")]
     public Transform player;
+
+    [Header("UI")]
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI nameText;
 
@@ -27,6 +35,9 @@ public class GameScript : MonoBehaviour
         roundText.text = "Round: " + round;
     }
 
+    /// <summary>
+    /// Démarre le jeu
+    /// </summary>
     public void StartGame()
     {
         round = 1;
@@ -37,6 +48,9 @@ public class GameScript : MonoBehaviour
         SpawnEnemies();
     }
 
+    /// <summary>
+    /// Fait apparaitre les ennemis aléatoirement sur les points de spawn choisis aléatoirement et cible le joueur.
+    /// </summary>
     void SpawnEnemies()
     {
         for (int i = 0; i < nbMaxEnemies; i++)
@@ -48,6 +62,10 @@ public class GameScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Lorsque tout les ennemis sont tués, on passe à la manche suivante en augmentant 
+    /// le nombre d'ennemis à spawn. On réinitialise le nombre d'ennemis tués et on relance la réapparition des ennemis.
+    /// </summary>
     public void EnemyKilled()
     {
         nbEnemiesKilled++;

@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Joueur")]
     public float health;
+
     [Header("Movement")]
     public float speed;
     public float dashForce;
@@ -19,18 +20,17 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     bool readyToJump = true;
 
-
-    [Header("Ground Check")]
+    [Header("SiLeJoueurEstAuSol")]
     public float playerHeight;
     public LayerMask Sol;
     private bool isGrounded;
 
     [Header("Orientation")]
     public Transform orientation;
-
     private float horizontalInput;
     private float verticalInput;
 
+    [Header("Dash")]
     Vector3 moveDirection;
     Vector3 dashDirection;
     Rigidbody rb;
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Ground Check
+        // Regarde si le joueur est au sol
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Sol);
 
         GetInput();
@@ -73,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
+    /// <summary>
+    /// Gère les inputs du joueur
+    /// </summary>
     void GetInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -104,12 +107,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gère le déplacement du joueur
+    /// </summary>
     void Move(){
         moveDirection = (orientation.forward * verticalInput) + (orientation.right * horizontalInput);
 
         rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
     }
 
+    /// <summary>
+    /// Gère la vitesse du joueur
+    /// </summary>
     void speedControler()
     {
         Vector3 flatVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -122,6 +131,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gère le saut du joueur
+    /// </summary>
     void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -132,11 +144,16 @@ public class PlayerMovement : MonoBehaviour
         jumpSound.Play();
     }
 
+    /// <summary>
+    /// Réinitialise le temps d'attente du saut
     void JumpReset()
     {
         readyToJump = true;
     }
 
+    /// <summary>
+    /// Gêre le dash du joueur
+    /// </summary>
     void Dash()
     {
         // Calcul de la direction du dash
@@ -149,6 +166,9 @@ public class PlayerMovement : MonoBehaviour
         dashSound.Play();
     }
 
+    /// <summary>
+    /// Gère le nombre de dash du joueur
+    /// </summary>
     void DashControler()
     {
         if (maxDash > 3)
@@ -159,6 +179,9 @@ public class PlayerMovement : MonoBehaviour
         dashText.text = maxDash.ToString();
     }
 
+    /// <summary>
+    /// Gère la vie du joueur
+    /// </summary>
     void HealthCheck()
     {
         if (health <= 0)
@@ -169,6 +192,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gère les dégats du joueur
+    /// </summary>
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -179,12 +205,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fait attendre le joueur avant de pouvoir ajouter un dash
+    /// </summary>
     IEnumerator WaitForDash(float time)
     {
         yield return new WaitForSeconds(time);
         maxDash++;
     }
 
+    /// <summary>
+    /// Fait attendre le joueur avant de pouvoir sauter à nouveau
+    /// </summary>
     IEnumerator WaitForJump(float time)
     {
         yield return new WaitForSeconds(time);

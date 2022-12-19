@@ -9,6 +9,9 @@ public class Name : MonoBehaviour
     public TextMeshProUGUI nameText;
     public static string playerName;
 
+    /// <summary>
+    /// Envoie le nom du joueur à la scène suivante
+    /// </summary>
     public void PlayGame()
     {
         playerName = nameText.text;

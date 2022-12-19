@@ -6,15 +6,17 @@ using TMPro;
 
 public class Gun : MonoBehaviour
 {
+    [Header("Statistique de l'arme")]
     public float damage = 10f;
     public float range = 100f;
     public float gunCooldown = 0.2f;
     public float reloadTime = 1.5f;
     public int maxAmmo = 20;
-    public int currentAmmo;
-    public bool isReloading;
-    public bool readyToShoot;
+    private int currentAmmo;
+    private bool isReloading;
+    private bool readyToShoot;
 
+    [Header("Références")]
     public Transform orientation;
     public RaycastHit hit;
     public Camera cam;
@@ -24,7 +26,6 @@ public class Gun : MonoBehaviour
     public LineRenderer lineRenderer;
     public Animator animator;
     public TextMeshProUGUI ammoCount;
-
 
     void Start()
     {
@@ -37,7 +38,9 @@ public class Gun : MonoBehaviour
         UiControler();
     }
 
-
+    /// <summary>
+    /// Gère les inputs du joueur
+    /// </summary>
     void GetInput()
     {
         if (Input.GetKey(KeyCode.Mouse0) && currentAmmo > 0 && !isReloading)
@@ -54,16 +57,22 @@ public class Gun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Change l'affichage de l'interface utilisateur pour le nombre de munitions
+    /// </summary>
     void UiControler()
     {
         ammoCount.text = currentAmmo.ToString();
     }
 
+    /// <summary>
+    /// Sert à faire tirer l'arme
+    /// </summary>
     void Shoot()
     {
         readyToShoot = false;
-        //shoot
         currentAmmo--;
+        //Crée un rayon qui part de la caméra et qui va dans la direction où elle regarde
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, enemie))
         {
             if(hit.transform.tag == "Enemy"){
@@ -78,9 +87,13 @@ public class Gun : MonoBehaviour
         muzzleFlash.Play();
         animator.SetTrigger("Shoot");
 
+        //Dit au script de ne pas tirer pendant le temps d'attente de l'arme
         Invoke("ResetShoot", gunCooldown);
     }
 
+    /// <summary>
+    /// Ajoute une ligne qui part de la caméra et qui va jusqu'au point de contact avec un objet
+    /// </summary>
     void AddLine()
     {
         GameObject traileffect = Instantiate(lineRenderer.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
@@ -93,17 +106,26 @@ public class Gun : MonoBehaviour
         Destroy(traileffect, 0.1f);
     }
 
+    /// <summary>
+    /// Ajoute une balle au point de contact
+    /// </summary>
     void AddWallHit()
     {
         GameObject wallHit = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
         Destroy(wallHit, 1f);
     }
 
+    /// <summary>
+    /// Réinitialise le temps d'attente de l'arme
+    /// </summary>
     void ResetShoot()
     {
         readyToShoot = true;
     }
 
+    /// <summary>
+    /// Sert à recharger l'arme
+    /// </summary>
     IEnumerator Reload()
     {
         isReloading = true;

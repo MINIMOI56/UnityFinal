@@ -5,24 +5,23 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     public float mouseSensitivity;
-
     public Transform orientation;
-
     float xRotation;
     float yRotation;
 
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update(){
         CameraInput();
     }
 
+    /// <summary>
+    /// Gère la rotation de la caméra
+    /// </summary>
     void CameraInput(){
         // Fait tourner la caméra à gauche et à droite avec la souris
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

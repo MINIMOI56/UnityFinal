@@ -5,6 +5,10 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     public GameObject trigger;
+    
+    /// <summary>
+    /// Déclenche l'évènement de fermeture de porte
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")

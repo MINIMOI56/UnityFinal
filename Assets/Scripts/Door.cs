@@ -9,6 +9,9 @@ public class Door : MonoBehaviour
         EventManager.CloseDoorEvent += CloseDoor;
     }
 
+    /// <summary>
+    /// Ferme la porte avec l'évènement
+    /// </summary>
     private void CloseDoor(){
         animator.SetTrigger("Start");
         Debug.Log("Door is closing");

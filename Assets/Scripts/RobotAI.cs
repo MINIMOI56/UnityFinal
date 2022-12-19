@@ -62,18 +62,21 @@ public class RobotAI : MonoBehaviour
     {
         agent.speed = config.speed;
         agent.SetDestination(target.transform.position);
+        Debug.Log(target.transform.position + " " + target.name);
     }
 
     internal void TakeDamage(float damage)
     {
-        maxHealth -= damage;
-        Debug.Log(maxHealth);
+        if(maxHealth > 0){
+            maxHealth -= damage;
+        }
     }
 
     void HealthCheck()
     {
-        if (maxHealth <= 0)
+        if (maxHealth == 0)
         {
+            EventManager.EnemyKilled();
             Destroy(gameObject);
         }
     }

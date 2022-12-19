@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
+    public GameObject trigger;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            EventManager.StartCloseDoor();
+            trigger.SetActive(false);
+            EventManager.StartGame();
         }
     }
 

@@ -8,12 +8,18 @@ public class EventManager : MonoBehaviour
     public GameObject door;
     public GameObject player;
     public GameObject gameManager;
-    //public static event Action StartGameEvent;
+    public static event Action StartGameEvent;
     public static event Action CloseDoorEvent;
+    public static event Action EnemyKilledEvent;
 
-    public static void StartCloseDoor()
+    public static void StartGame()
     {
-        Debug.Log("StartCloseDoor");
+        StartGameEvent?.Invoke();
         CloseDoorEvent?.Invoke();
+    }
+
+    public static void EnemyKilled()
+    {
+        EnemyKilledEvent?.Invoke();
     }
 }

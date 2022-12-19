@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI dashText;
     public TextMeshProUGUI HpText;
+
+    [Header("Audio")]
+    public AudioSource dashSound;
+    public AudioSource jumpSound;
+    public AudioSource hurtSound;
 
     void Start()
     {
@@ -122,6 +128,8 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         isGrounded = false;
+
+        jumpSound.Play();
     }
 
     void JumpReset()
@@ -136,6 +144,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Ajout de la force
         rb.AddForce(dashDirection.normalized * dashForce * 10f, ForceMode.Impulse);
+
+        // Joue le son du dash
+        dashSound.Play();
     }
 
     void DashControler()
@@ -162,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            hurtSound.Play();
             health -= 20;
             HpText.text = health.ToString();
         }

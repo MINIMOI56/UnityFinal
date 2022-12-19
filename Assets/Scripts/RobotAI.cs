@@ -62,7 +62,6 @@ public class RobotAI : MonoBehaviour
     {
         agent.speed = config.speed;
         agent.SetDestination(target.transform.position);
-        Debug.Log(target.transform.position + " " + target.name);
     }
 
     internal void TakeDamage(float damage)

@@ -418,9 +418,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Le but du jeu consiste \xE0 survivre contre les Robotos le plus longtemps
-    possible. Vous-pouvez vous d'\xE9placer avec (W,A,S,D), sauter avec (Espace),
+    possible. Vous pouvez vous d'\xE9placer avec (W,A,S,D), sauter avec (Espace),
     Tire avec (Clique gauche de la souris) et un dash \xE0 \xE9t\xE9 inclus dans
-    votre exosquelette.\n\nBonne\nChance<sprite=\"EmojiOne\" index=3>"
+    votre exosquelette. Vous pouvez aussi changer le volume de la musique avec le
+    \"Slider\" dans le jeu en utilisant (\xC9chapp. et clique gauche)\n\nBonne\nChance<sprite=\"EmojiOne\"
+    index=3>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -447,8 +449,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

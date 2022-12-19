@@ -1,0 +1,18 @@
+L'objectif du jeu est de survire le plus de "round"(comme est il est indiqué dans le jeu) sans mourir. 
+Il y a trois types de robot, rapide, normal et lent. 
+Plus ils sont rapide, moins ils ont de vie.
+
+Mécaniques:
+	Avancer: W
+	Reculer: S
+	Gauche: A
+	Droite: D
+
+	Saut: Espace
+
+	Dash(Impulsion): Shift (tout en allant vers une direction: W,A,S,D)
+
+	Tire: Clique gauche
+
+Pour changer le volume dans la partie, faire échapp. pour avoir acces à la souris et glisser le boutton à glissière. 
+Faire clique droit pour retourner au jeu.
